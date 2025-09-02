@@ -18,6 +18,10 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				cartoon: ['Comic Neue', 'Comic Sans MS', 'cursive'],
+				'cartoon-header': ['Fredoka One', 'Comic Neue', 'cursive'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',

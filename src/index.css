@@ -2,41 +2,64 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Cartoonist Design System - Comic book colors and styles */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Cartoon Sky Background */
+    --background: 199 89% 94%;
+    --foreground: 220 25% 25%;
 
+    /* Comic Book Panel Cards */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 220 25% 25%;
 
+    /* Speech Bubble Popovers */
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 220 25% 25%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Comic Book Blue Primary */
+    --primary: 208 76% 56%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Sunny Yellow Secondary */
+    --secondary: 51 95% 63%;
+    --secondary-foreground: 220 25% 25%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Pastel Comic Background */
+    --muted: 51 95% 90%;
+    --muted-foreground: 220 25% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Cartoon Red Accent */
+    --accent: 356 75% 65%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Comic Danger Red */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Comic Book Black Borders */
+    --border: 220 25% 15%;
+    --input: 0 0% 100%;
+    --ring: 208 76% 56%;
 
-    --radius: 0.5rem;
+    /* Cartoon Rounded Corners */
+    --radius: 1rem;
+
+    /* Cartoon Gradients */
+    --gradient-cartoon-sky: linear-gradient(135deg, hsl(199, 89%, 94%) 0%, hsl(51, 95%, 90%) 100%);
+    --gradient-comic-panel: linear-gradient(145deg, hsl(0, 0%, 100%) 0%, hsl(199, 30%, 95%) 100%);
+    --gradient-cartoon-button: linear-gradient(145deg, hsl(208, 76%, 56%) 0%, hsl(208, 76%, 48%) 100%);
+    --gradient-accent-button: linear-gradient(145deg, hsl(356, 75%, 65%) 0%, hsl(356, 75%, 58%) 100%);
+    
+    /* Comic Book Shadows */
+    --shadow-comic: 0 4px 0 hsl(220, 25%, 15%);
+    --shadow-comic-hover: 0 6px 0 hsl(220, 25%, 15%);
+    --shadow-panel: 0 8px 20px hsl(220, 25%, 15%, 0.15);
+    
+    /* Animation Timings */
+    --transition-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-cartoon: all 0.3s var(--transition-bounce);
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +123,123 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-cartoon;
+    background: var(--gradient-cartoon-sky);
+    background-attachment: fixed;
+  }
+}
+
+/* Cartoon Typography and Custom Styles */
+@layer components {
+  /* Comic Book Font Classes */
+  .font-cartoon {
+    font-family: 'Comic Neue', 'Comic Sans MS', cursive;
+  }
+  
+  .font-cartoon-header {
+    font-family: 'Fredoka One', 'Comic Neue', cursive;
+    font-weight: 400;
+  }
+
+  /* Comic Book Button Variants */
+  .btn-comic {
+    @apply relative inline-flex items-center justify-center rounded-xl border-4 border-border bg-white px-6 py-3 font-bold text-foreground transition-all duration-300 hover:translate-y-1 hover:shadow-none;
+    box-shadow: var(--shadow-comic);
+  }
+  
+  .btn-comic:hover {
+    box-shadow: var(--shadow-comic-hover);
+    transform: translateY(-2px);
+  }
+  
+  .btn-comic:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 hsl(220, 25%, 15%);
+  }
+
+  .btn-comic-primary {
+    @apply btn-comic bg-primary text-primary-foreground hover:bg-primary/90;
+    background: var(--gradient-cartoon-button);
+  }
+
+  .btn-comic-accent {
+    @apply btn-comic bg-accent text-accent-foreground hover:bg-accent/90;
+    background: var(--gradient-accent-button);
+  }
+
+  .btn-comic-secondary {
+    @apply btn-comic bg-secondary text-secondary-foreground hover:bg-secondary/90;
+  }
+
+  /* Comic Panel Card */
+  .card-comic {
+    @apply relative rounded-2xl border-4 border-border bg-card p-6 transition-all duration-300 hover:scale-105;
+    background: var(--gradient-comic-panel);
+    box-shadow: var(--shadow-panel);
+  }
+
+  /* Speech Bubble Effect */
+  .speech-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 30px;
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid white;
+    border-top-color: inherit;
+  }
+
+  /* Comic Book Dots Pattern */
+  .comic-dots {
+    background-image: radial-gradient(circle, hsl(220, 25%, 15%) 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.1;
+  }
+
+  /* Cartoon Animations */
+  .animate-bounce-gentle {
+    animation: bounce-gentle 2s infinite;
+  }
+
+  .animate-wiggle {
+    animation: wiggle 0.5s ease-in-out;
+  }
+
+  .animate-pop {
+    animation: pop 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+}
+
+/* Keyframe Animations */
+@keyframes bounce-gentle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes wiggle {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(1deg);
+  }
+  75% {
+    transform: rotate(-1deg);
+  }
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0.8);
+  }
+  100% {
+    transform: scale(1);
   }
 }
